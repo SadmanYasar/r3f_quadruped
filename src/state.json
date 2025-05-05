@@ -1,0 +1,64 @@
+{
+  "sheetsById": {
+    "Demo Sheet": {
+      "staticOverrides": {
+        "byObject": {
+          "Plane": {
+            "position": {
+              "y": -2.6700000000000066
+            }
+          }
+        }
+      },
+      "sequence": {
+        "subUnitsPerUnit": 30,
+        "length": 10,
+        "type": "PositionalSequence",
+        "tracksByObject": {
+          "Plane": {
+            "trackData": {
+              "QRF8OgYewt": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Plane:[\"position\",\"y\"]",
+                "keyframes": [
+                  {
+                    "id": "Cr4h7w2K-6",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -5.3
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"position\",\"y\"]": "QRF8OgYewt"
+            }
+          },
+          "Player": {
+            "trackData": {
+              "xLufEwnWOv": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Player:[\"position\",\"y\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"position\",\"y\"]": "xLufEwnWOv"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitionVersion": "0.4.0",
+  "revisionHistory": [
+    "JhmN793oyW6ynBU-",
+    "BCsL1WG6ylFiDvon"
+  ]
+}
