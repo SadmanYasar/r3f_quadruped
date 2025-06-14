@@ -18,6 +18,7 @@ import { SheetProvider } from "@theatre/r3f";
 import demoProjectState from "./state.json";
 import nyan from "./assets/nyan.png";
 import strat from "./assets/strat.png";
+// import { BuildingProvider } from "./components/BuildingContext";
 
 // our Theatrjs project sheet, we'll use this later
 const demoSheet = getProject("Demo Project", { state: demoProjectState }).sheet(
@@ -92,12 +93,12 @@ export default function App() {
   });
 
   //update the time every minute
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 60000);
-    return () => clearInterval(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setTime(new Date());
+  //   }, 60000);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   // useEffect(() => {
   //   demoSheet.project.ready.then(() => demoSheet.sequencplay({ iterationCount: 1 }))
@@ -115,8 +116,8 @@ export default function App() {
   return (
     <>
       <div className="max-sm:hidden lg:block absolute top-0 right-0 text-white z-[99] flex flex-col p-4 space-y-1">
-        <div className="flex flex-row">
-          <img src="fist_icon.webp" alt="fist" className="w-20 h-20" />
+        <div className="flex flex-row gap-x-1">
+          <img src="fist_icon_paw.png" alt="fist" className="w-20 h-20" />
           <div className="flex flex-col space-y-1 text-3xl font-bold">
             <div>
               {time.getHours().toString().padStart(2, "0")}:
@@ -146,72 +147,74 @@ export default function App() {
         //   }
         // }}
       >
-        {/* <OrthographicCamera
-          makeDefault
-          zoom={100}
-          far={10000}
-          near={0.1}
-          position={[0, 0, -300]}
-        /> */}
-        <color attach={"background"} args={["black"]} />
-        {/* <ContactShadows /> */}
-        <SheetProvider sheet={demoSheet}>
-          <Perf position="top-left" />
-          <axesHelper args={[3]} />
-          <Environment preset="apartment" />
-          {/* <Sphere scale={[80, 80, 80]} rotation-y={Math.PI / 2}>
-            <LayerMaterial
-              // lighting='physical'
-              // transmission={1}
-              side={THREE.BackSide}
-            >
-              <Gradient
-                colorA={"magenta"}
-                colorB={"blue"}
-                axes='y'
-                start={0}
-                end={0.4}
-              />
-            </LayerMaterial>
-          </Sphere> */}
-          {/* <Stars /> */}
-          <Lights />
-          {/* <Stats /> */}
-          <color attach="background" args={["white"]} />
-          <Physics timeStep="vary" debug>
-            <KeyboardControls map={keyboardMap}>
-              <Suspense fallback={null}>
-                <Player />
-              </Suspense>
-            </KeyboardControls>
-            <Suspense fallback={null}>
-              <Tommy />
-            </Suspense>
-            <Ground />
-            {/* <MainRoad position={[0, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
-            {/* <Intersection position={[30, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
-            {/* <MainRoad position={[60, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
+        <>
+          {/* <OrthographicCamera
+            makeDefault
+            zoom={100}
+            far={10000}
+            near={0.1}
+            position={[0, 0, -300]}
+          /> */}
+          <color attach={"background"} args={["black"]} />
+          {/* <ContactShadows /> */}
+          <SheetProvider sheet={demoSheet}>
+            <Perf position="top-left" />
+            <axesHelper args={[3]} />
+            <Environment preset="apartment" />
+            {/* <Sphere scale={[80, 80, 80]} rotation-y={Math.PI / 2}>
+              <LayerMaterial
+                // lighting='physical'
+                // transmission={1}
+                side={THREE.BackSide}
+              >
+                <Gradient
+                  colorA={"magenta"}
+                  colorB={"blue"}
+                  axes='y'
+                  start={0}
+                  end={0.4}
+                />
+              </LayerMaterial>
+            </Sphere> */}
+            {/* <Stars /> */}
+            <Lights />
+            {/* <Stats /> */}
+            <color attach="background" args={["white"]} />
+            <Physics timeStep="vary">
+              <KeyboardControls map={keyboardMap}>
+                <Suspense fallback={null}>
+                  <Player />
+                </Suspense>
+              </KeyboardControls>
+              {/* <Suspense fallback={null}>
+                <Tommy />
+              </Suspense> */}
+              <Ground />
+              {/* <MainRoad position={[0, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
+              {/* <Intersection position={[30, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
+              {/* <MainRoad position={[60, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
 
-            {/* <ViceCity /> */}
-            {/* <ViceCityColliderMesh /> */}
-            {/* <ViceCityColliderMesh /> */}
-            {/* <GroveStreet visible={false} /> */}
-          </Physics>
-          <Billboard>
-            <group>
-              <Image url={nyan} transparent />
-            </group>
-            <group>
-              <Image url={strat} transparent zoom={0.35} />
-            </group>
-          </Billboard>
-          {/* <PopCat /> */}
-          {/* <Instances>
-            <Building_2 />
-            <Building_2 position={[-8.17, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
-            <Building_2 position={[50, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
-          </Instances> */}
-        </SheetProvider>
+              {/* <ViceCity /> */}
+              {/* <ViceCityColliderMesh /> */}
+              {/* <ViceCityColliderMesh /> */}
+              {/* <GroveStreet visible={false} /> */}
+            </Physics>
+            <Billboard>
+              <group>
+                <Image url={nyan} transparent />
+              </group>
+              <group>
+                <Image url={strat} transparent zoom={0.35} />
+              </group>
+            </Billboard>
+            {/* <PopCat /> */}
+            {/* <Instances>
+              <Building_2 />
+              <Building_2 position={[-8.17, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
+              <Building_2 position={[50, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
+            </Instances> */}
+          </SheetProvider>
+        </>
       </Canvas>
       <Loader />
     </>

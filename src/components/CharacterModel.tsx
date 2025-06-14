@@ -12,7 +12,7 @@ export default function Model(props) {
   const { nodes, materials, animations } = useGLTF("/cat.glb");
     const { actions } = useAnimations(animations, group);
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} name="player">
       <group name="Scene">
         <group name="Sketchfab_model001" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="root001">

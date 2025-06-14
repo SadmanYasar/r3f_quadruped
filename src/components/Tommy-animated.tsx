@@ -22,7 +22,7 @@ export default function Tommy(props) {
   }, [actions])
 
   return (
-    <e.group theatreKey='Tommy' ref={group} {...props} position={[17.7, -0.54, 4]} rotation={[-Math.PI, 1.52, Math.PI]} dispose={null}>
+    <e.group theatreKey='Tommy' ref={group} {...props} position={[17.7, 0, 4]} rotation={[-Math.PI, 1.52, Math.PI]} dispose={null}>
       <group name="Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={0.909}>
           <group name="Tommy_Vercettiobjcleanermaterialmergergles" />

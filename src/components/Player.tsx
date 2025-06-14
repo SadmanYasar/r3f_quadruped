@@ -46,30 +46,16 @@ export default function Player() {
         ref={ref}
         debug
         animated
-        position={[26, 0.54, 1.54]}
-        // position={[24, -0.54, 3]}
+        position={[26, 0.1, 1.54]}
         camInitDir={{ x: 0, y: -2.09, z: 0 }}
         autoBalance={false}
-        // springK={2}
-        // dampingC={0.2}
-        // autoBalanceSpringK={1.2}
-        // autoBalanceDampingC={0.04}
-        // autoBalanceSpringOnY={0.7}
-        // autoBalanceDampingOnY={0.05}
-        capsuleHalfHeight={0.3}
-        // capsuleRadius={0.6}
       >
-        <CuboidCollider args={[0.2, 0.2, 0.7]} mass={0} />
+        <CuboidCollider args={[0.2, 0.2, 0.7]} name="playerCube" />
         <EcctrlAnimation
-          characterURL={characterURL} // Must have property
-          animationSet={animationSet} // Must have property
+          characterURL={characterURL}
+          animationSet={animationSet}
         >
-          {/* <mesh>
-          <capsuleGeometry args={[0.3, 0.7, 32]} />
-          <meshStandardMaterial color="blue" />
-        </mesh> */}
           <CharacterModel scale={[3, 3, 3]} position={[0, -0.7, 0]} />
-          {/* <CharacterModel /> */}
         </EcctrlAnimation>
       </Ecctrl>
     </>
