@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import CharacterModel from "./CharacterModel";
+import { Model as CharacterModel, CatActionName } from "./CharacterModel";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import { CuboidCollider } from "@react-three/rapier";
 import Tommy from "./Tommy-animated";
@@ -11,14 +11,15 @@ export default function Player() {
 
   const characterURL = "./cat.glb";
 
-  const animationSet = {
-    idle: "cat_rig_Walk",
-    walk: "cat_rig_Walk",
-    run: "cat_rig_Run",
-    jump: "cat_rig_Walk",
-    jumpIdle: "cat_rig_Walk",
-    jumpLand: "cat_rig_Walk",
-    fall: "cat_rig_Walk",
+  const animationSet: Record<string, CatActionName> = {
+    idle: "Idle",
+    walk: "Walk",
+    run: "Run",
+    jump: "Jump_Start",
+    jumpIdle: "Falling",
+    jumpLand: "Jump_Land",
+    fall: "Falling", // This is for falling from high sky
+    action1: "Attack",
   };
 
   const reset = () => {
@@ -34,7 +35,7 @@ export default function Player() {
       const position = ref.current.translation();
 
       // Reset
-      if (position.y < -3) {
+      if (position.y < -12) {
         reset();
       }
     }
@@ -46,16 +47,27 @@ export default function Player() {
         ref={ref}
         debug
         animated
-        position={[26, 0.1, 1.54]}
+        position={[0, 0.1, 10]}
         camInitDir={{ x: 0, y: -2.09, z: 0 }}
         autoBalance={false}
+        camInitDis={-2}
+        capsuleRadius={0.3}
+        capsuleHalfHeight={0.35}
+        floatHeight={0}
       >
-        <CuboidCollider args={[0.2, 0.2, 0.7]} name="playerCube" />
+        {/* <CuboidCollider
+          args={[0.2, 0.2, 0.1]}
+          position={[0, 0.1, 0.5]}
+          name="playerCube"
+        /> */}
         <EcctrlAnimation
           characterURL={characterURL}
           animationSet={animationSet}
         >
-          <CharacterModel scale={[3, 3, 3]} position={[0, -0.7, 0]} />
+          <CharacterModel
+            scale={[0.017, 0.017, 0.017]}
+            position={[0, -0.16, 0]}
+          />
         </EcctrlAnimation>
       </Ecctrl>
     </>

@@ -10,6 +10,7 @@ import {
   Loader,
   OrbitControls,
   OrthographicCamera,
+  Stars,
 } from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";
 import { EcctrlJoystick } from "ecctrl";
@@ -18,6 +19,7 @@ import { SheetProvider } from "@theatre/r3f";
 import demoProjectState from "./state.json";
 import nyan from "./assets/nyan.png";
 import strat from "./assets/strat.png";
+
 // import { BuildingProvider } from "./components/BuildingContext";
 
 // our Theatrjs project sheet, we'll use this later
@@ -69,6 +71,7 @@ const EcctrlJoystickControls = () => {
     <>
       {isTouchScreen && (
         <EcctrlJoystick
+          buttonNumber={2}
           joystickBaseProps={{
             receiveShadow: true,
             material: new THREE.MeshStandardMaterial({ color: "grey" }),
@@ -81,7 +84,7 @@ const EcctrlJoystickControls = () => {
 
 export default function App() {
   //create a timer to display the current time in HH:MM format
-  const [time, setTime] = useState(new Date());
+  // const [time, setTime] = useState(new Date());
   const { ground, zoom } = useControls({
     //environment
     ground: { height: 35, radius: 30, scale: 100 },
@@ -91,6 +94,18 @@ export default function App() {
       max: 1000,
     },
   });
+
+  /**
+   * Delay physics activate
+   */
+  const [pausedPhysics, setPausedPhysics] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPausedPhysics(false);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   //update the time every minute
   // useEffect(() => {
@@ -111,11 +126,12 @@ export default function App() {
     { name: "rightward", keys: ["ArrowRight", "KeyD"] },
     { name: "jump", keys: ["Space"] },
     { name: "run", keys: ["Shift"] },
+    { name: "action1", keys: ["1"] },
   ];
 
   return (
     <>
-      <div className="max-sm:hidden lg:block absolute top-0 right-0 text-white z-[99] flex flex-col p-4 space-y-1">
+      {/* <div className="max-sm:hidden lg:block absolute top-0 right-0 text-white z-[99] flex flex-col p-4 space-y-1">
         <div className="flex flex-row gap-x-1">
           <img src="fist_icon_paw.png" alt="fist" className="w-20 h-20" />
           <div className="flex flex-col space-y-1 text-3xl font-bold">
@@ -130,7 +146,7 @@ export default function App() {
           <div className="w-full h-4 bg-red-600 border-4 border-black"></div>
         </div>
         <div className="text-3xl font-bold text-green-600 money">$99999999</div>
-      </div>
+      </div> */}
       <EcctrlJoystickControls />
       <Canvas
         shadows
@@ -155,12 +171,15 @@ export default function App() {
             near={0.1}
             position={[0, 0, -300]}
           /> */}
-          <color attach={"background"} args={["black"]} />
+          {/* <color attach={"background"} args={["black"]} /> */}
           {/* <ContactShadows /> */}
           <SheetProvider sheet={demoSheet}>
-            <Perf position="top-left" />
-            <axesHelper args={[3]} />
-            <Environment preset="apartment" />
+            {/* <Perf position="top-left" /> */}
+            {/* <axesHelper args={[3]} /> */}
+            <Environment
+              preset="forest"
+              ground={{ height: 35, radius: 100, scale: 200 }}
+            />
             {/* <Sphere scale={[80, 80, 80]} rotation-y={Math.PI / 2}>
               <LayerMaterial
                 // lighting='physical'
@@ -179,8 +198,8 @@ export default function App() {
             {/* <Stars /> */}
             <Lights />
             {/* <Stats /> */}
-            <color attach="background" args={["white"]} />
-            <Physics timeStep="vary">
+            {/* <color attach="background" args={["white"]} /> */}
+            <Physics timeStep="vary" paused={false}>
               <KeyboardControls map={keyboardMap}>
                 <Suspense fallback={null}>
                   <Player />
@@ -199,15 +218,15 @@ export default function App() {
               {/* <ViceCityColliderMesh /> */}
               {/* <GroveStreet visible={false} /> */}
             </Physics>
-            <Billboard>
+            {/* <Billboard>
               <group>
                 <Image url={nyan} transparent />
               </group>
               <group>
                 <Image url={strat} transparent zoom={0.35} />
               </group>
-            </Billboard>
-            {/* <PopCat /> */}
+            </Billboard> */}
+            <PopCat />
             {/* <Instances>
               <Building_2 />
               <Building_2 position={[-8.17, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
