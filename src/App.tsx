@@ -3,6 +3,7 @@ import { Physics } from "@react-three/rapier";
 import {
   Billboard,
   Environment,
+  Fisheye,
   GizmoHelper,
   GizmoViewport,
   Image,
@@ -16,16 +17,16 @@ import { Suspense, useEffect, useState } from "react";
 import { EcctrlJoystick } from "ecctrl";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
-import demoProjectState from "./state.json";
+// import demoProjectState from "./state.json";
 import nyan from "./assets/nyan.png";
 import strat from "./assets/strat.png";
 
 // import { BuildingProvider } from "./components/BuildingContext";
 
 // our Theatrjs project sheet, we'll use this later
-const demoSheet = getProject("Demo Project", { state: demoProjectState }).sheet(
-  "Demo Sheet"
-);
+// const demoSheet = getProject("Demo Project", { state: demoProjectState }).sheet(
+//   "Demo Sheet"
+// );
 
 // if (import.meta.env.DEV) {
 //   studio.initialize()
@@ -85,27 +86,27 @@ const EcctrlJoystickControls = () => {
 export default function App() {
   //create a timer to display the current time in HH:MM format
   // const [time, setTime] = useState(new Date());
-  const { ground, zoom } = useControls({
-    //environment
-    ground: { height: 35, radius: 30, scale: 100 },
-    zoom: {
-      value: 1,
-      min: 0.1,
-      max: 1000,
-    },
-  });
+  // const { ground, zoom } = useControls({
+  //   //environment
+  //   ground: { height: 35, radius: 100 },
+  //   zoom: {
+  //     value: 100,
+  //     min: 0.1,
+  //     max: 1000,
+  //   },
+  // });
 
   /**
    * Delay physics activate
    */
-  const [pausedPhysics, setPausedPhysics] = useState(true);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setPausedPhysics(false);
-    }, 500);
+  // const [pausedPhysics, setPausedPhysics] = useState(true);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setPausedPhysics(false);
+  //   }, 500);
 
-    return () => clearTimeout(timeout);
-  }, []);
+  //   return () => clearTimeout(timeout);
+  // }, []);
 
   //update the time every minute
   // useEffect(() => {
@@ -150,12 +151,12 @@ export default function App() {
       <EcctrlJoystickControls />
       <Canvas
         shadows
-        // camera={{
-        //   fov: 120,
-        //   near: 0.1,
-        //   far: 1000,
-        //   zoom: 150,
-        // }}
+        camera={{
+          // fov: 120,
+          near: 0.01,
+          far: 1000,
+          // zoom: 150,
+        }}
         // orthographic
         // onPointerDown={(e) => {
         //   if (e.pointerType === "mouse") {
@@ -173,14 +174,18 @@ export default function App() {
           /> */}
           {/* <color attach={"background"} args={["black"]} /> */}
           {/* <ContactShadows /> */}
-          <SheetProvider sheet={demoSheet}>
-            {/* <Perf position="top-left" /> */}
-            {/* <axesHelper args={[3]} /> */}
-            <Environment
-              preset="forest"
-              ground={{ height: 35, radius: 100, scale: 200 }}
-            />
-            {/* <Sphere scale={[80, 80, 80]} rotation-y={Math.PI / 2}>
+          {/* <SheetProvider sheet={demoSheet}> */}
+          {/* <Perf position="top-left" /> */}
+          {/* <axesHelper args={[3]} /> */}
+          <Environment
+            preset="apartment"
+            // files={"/old_depot_2k.hdr"}
+            // ground
+            // ground={{ ...ground, scale: zoom }}
+            ground={{ height: 35, radius: 100, scale: 20 }}
+            // resolution={2048}
+          />
+          {/* <Sphere scale={[80, 80, 80]} rotation-y={Math.PI / 2}>
               <LayerMaterial
                 // lighting='physical'
                 // transmission={1}
@@ -195,30 +200,34 @@ export default function App() {
                 />
               </LayerMaterial>
             </Sphere> */}
-            {/* <Stars /> */}
-            <Lights />
-            {/* <Stats /> */}
-            {/* <color attach="background" args={["white"]} /> */}
-            <Physics timeStep="vary" paused={false}>
-              <KeyboardControls map={keyboardMap}>
-                <Suspense fallback={null}>
-                  <Player />
-                </Suspense>
-              </KeyboardControls>
-              {/* <Suspense fallback={null}>
-                <Tommy />
-              </Suspense> */}
-              <Ground />
-              {/* <MainRoad position={[0, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
-              {/* <Intersection position={[30, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
-              {/* <MainRoad position={[60, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
+          {/* <Stars /> */}
+          <Lights />
+          {/* <Stats /> */}
+          {/* <color attach="background" args={["white"]} /> */}
+          <Physics timeStep="vary">
+            <KeyboardControls map={keyboardMap}>
+              <Suspense fallback={null}>
+                <Player />
+              </Suspense>
+            </KeyboardControls>
+            {/* <PopCat /> */}
+            <Suspense fallback={null}>
+              <Tommy />
+            </Suspense>
+            <Suspense fallback={null}>
+              <PopCat />
+            </Suspense>
+            <Ground />
+            {/* <MainRoad position={[0, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
+            {/* <Intersection position={[30, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
+            {/* <MainRoad position={[60, -0.3, 0]} rotation={[-1.58, 0, 0]} /> */}
 
-              {/* <ViceCity /> */}
-              {/* <ViceCityColliderMesh /> */}
-              {/* <ViceCityColliderMesh /> */}
-              {/* <GroveStreet visible={false} /> */}
-            </Physics>
-            {/* <Billboard>
+            {/* <ViceCity /> */}
+            {/* <ViceCityColliderMesh /> */}
+            {/* <ViceCityColliderMesh /> */}
+            {/* <GroveStreet visible={false} /> */}
+          </Physics>
+          {/* <Billboard>
               <group>
                 <Image url={nyan} transparent />
               </group>
@@ -226,13 +235,12 @@ export default function App() {
                 <Image url={strat} transparent zoom={0.35} />
               </group>
             </Billboard> */}
-            <PopCat />
-            {/* <Instances>
+          {/* <Instances>
               <Building_2 />
               <Building_2 position={[-8.17, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
               <Building_2 position={[50, -0.23, 25.55]} rotation={[0, -1.54, 0]} scale={[0.5, 0.5, 0.5]} />
             </Instances> */}
-          </SheetProvider>
+          {/* </SheetProvider> */}
         </>
       </Canvas>
       <Loader />

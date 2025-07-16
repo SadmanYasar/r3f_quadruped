@@ -17,7 +17,7 @@ import { useGLTF } from '@react-three/drei'
 export default function GroveStreet(props) {
   const { nodes, materials } = useGLTF('/grove_street.glb')
   return (
-    <group theatreKey='grove_street' {...props} dispose={null}>
+    <group {...props} dispose={null}>
       <group position={[27.994, 5.807, -1.12]}>
         <mesh geometry={nodes.Object_4.geometry} material={materials.color} />
         <mesh geometry={nodes.Object_5.geometry} material={materials.color} />

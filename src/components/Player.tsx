@@ -32,7 +32,7 @@ export default function Player() {
 
   useFrame(() => {
     if (ref.current) {
-      const position = ref.current.translation();
+      const position = ref.current.translation;
 
       // Reset
       if (position.y < -12) {
@@ -45,7 +45,7 @@ export default function Player() {
     <>
       <Ecctrl
         ref={ref}
-        debug
+        // debug
         animated
         position={[0, 0.1, 10]}
         camInitDir={{ x: 0, y: -2.09, z: 0 }}
@@ -54,6 +54,7 @@ export default function Player() {
         capsuleRadius={0.3}
         capsuleHalfHeight={0.35}
         floatHeight={0}
+        mode="FixedCamera"
       >
         {/* <CuboidCollider
           args={[0.2, 0.2, 0.1]}

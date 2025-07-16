@@ -1,3 +1,8 @@
+import {
+  MeshDistortMaterial,
+  MeshTransmissionMaterial,
+  MeshWobbleMaterial,
+} from "@react-three/drei";
 import { RigidBody, InstancedRigidBodies } from "@react-three/rapier";
 import { useGame } from "ecctrl";
 import { useRef, useMemo } from "react";
@@ -54,14 +59,16 @@ export default function Ground() {
       {/* Ground */}
       <RigidBody type="fixed">
         <mesh castShadow receiveShadow position={[0, -1, 0]}>
-          <boxGeometry args={[100, 1, 100]} />
-          <meshStandardMaterial color={"#ff5744"} opacity={0.4} transparent />
+          <boxGeometry args={[50, 1, 50]} />
+          <meshPhongMaterial opacity={0.1} transparent />
         </mesh>
       </RigidBody>
       <RigidBody>
         <mesh receiveShadow castShadow position={[0, 0.1, 11]}>
           <boxGeometry args={[0.4, 1, 0.4]} />
-          <meshStandardMaterial color={"lightsteelblue"} />
+          <MeshWobbleMaterial factor={2} speed={1} color={"#ffffff"} />
+          {/* <MeshDistortMaterial distort={1} speed={10} /> */}
+          {/* <MeshTransmissionMaterial transmissionSampler /> */}
         </mesh>
       </RigidBody>
 

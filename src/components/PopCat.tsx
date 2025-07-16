@@ -12,72 +12,81 @@ Title: POP CAT
 
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { editable as e } from '@theatre/r3f'
+import { editable as e } from "@theatre/r3f";
+import { RigidBody } from "@react-three/rapier";
 
 export default function PopCat(props) {
-    const group = useRef();
-    const { nodes, materials, animations } = useGLTF("/pop_cat.glb");
-    const { actions } = useAnimations(animations, group);
+  const group = useRef();
+  const { nodes, materials, animations } = useGLTF("/pop_cat.glb");
+  const { actions } = useAnimations(animations, group);
 
-    useEffect(() => {
-        actions["Animation"].play();
-    }, [actions]);
+  useEffect(() => {
+    actions["Animation"].play();
+  }, [actions]);
 
-    return (
-        <e.group theatreKey="PopCat" ref={group} {...props} scale={[0.05, 0.05, 0.05]} dispose={null}>
-            <group name="Sketchfab_Scene">
-                <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
-                    <group name="root">
-                        <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>
-                            <group
-                                name="tail_1"
-                                position={[0.484, 7.965, -0.993]}
-                                scale={1.211}
-                            >
-                                <mesh
-                                    name="Object_4"
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.Object_4.geometry}
-                                    material={materials["Material.004"]}
-                                />
-                            </group>
-                            <group
-                                name="cat_6"
-                                position={[0.484, 7.723, -0.993]}
-                                scale={1.211}
-                            >
-                                <mesh
-                                    name="mesh_1"
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.mesh_1.geometry}
-                                    material={materials["Material.004"]}
-                                    morphTargetDictionary={nodes.mesh_1.morphTargetDictionary}
-                                    morphTargetInfluences={nodes.mesh_1.morphTargetInfluences}
-                                />
-                            </group>
-                            <group
-                                name="cat001_7"
-                                position={[9.642, 7.723, -0.993]}
-                                scale={1.211}
-                            >
-                                <mesh
-                                    name="mesh_2"
-                                    castShadow
-                                    receiveShadow
-                                    geometry={nodes.mesh_2.geometry}
-                                    material={materials["Material.004"]}
-                                    morphTargetDictionary={nodes.mesh_2.morphTargetDictionary}
-                                    morphTargetInfluences={nodes.mesh_2.morphTargetInfluences}
-                                />
-                            </group>
-                        </group>
-                    </group>
+  return (
+    <RigidBody type="dynamic" colliders="cuboid" position={[0, 1, 0]}>
+      <group
+        theatreKey="PopCat"
+        ref={group}
+        {...props}
+        scale={[0.05, 0.05, 0.05]}
+        dispose={null}
+      >
+        <group name="Sketchfab_Scene">
+          <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
+            <group name="root">
+              <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>
+                <group
+                  name="tail_1"
+                  position={[0.484, 7.965, -0.993]}
+                  scale={1.211}
+                >
+                  <mesh
+                    name="Object_4"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Object_4.geometry}
+                    material={materials["Material.004"]}
+                  />
                 </group>
+                <group
+                  name="cat_6"
+                  position={[0.484, 7.723, -0.993]}
+                  scale={1.211}
+                >
+                  <mesh
+                    name="mesh_1"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.mesh_1.geometry}
+                    material={materials["Material.004"]}
+                    morphTargetDictionary={nodes.mesh_1.morphTargetDictionary}
+                    morphTargetInfluences={nodes.mesh_1.morphTargetInfluences}
+                  />
+                </group>
+                <group
+                  name="cat001_7"
+                  position={[9.642, 7.723, -0.993]}
+                  scale={1.211}
+                >
+                  <mesh
+                    name="mesh_2"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.mesh_2.geometry}
+                    material={materials["Material.004"]}
+                    morphTargetDictionary={nodes.mesh_2.morphTargetDictionary}
+                    morphTargetInfluences={nodes.mesh_2.morphTargetInfluences}
+                  />
+                </group>
+              </group>
             </group>
-        </e.group>
-    );
+          </group>
+        </group>
+      </group>
+    </RigidBody>
+  );
 }
 
 useGLTF.preload("/pop_cat.glb");

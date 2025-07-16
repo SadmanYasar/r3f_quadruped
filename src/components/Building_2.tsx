@@ -32,7 +32,7 @@ export function Instances({ children, ...props }) {
 export function Building_2(props) {
     const instances = useContext(context)
     return (
-        <group theatreKey='building2' {...props} dispose={null}>
+        <group {...props} dispose={null}>
             <instances.BoxMaterial position={[0.391, 0, 4.173]} rotation={[-Math.PI / 2, 0, 0]} />
         </group>
     )

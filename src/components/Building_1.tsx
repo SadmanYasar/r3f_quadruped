@@ -17,7 +17,7 @@ import { editable as e } from '@theatre/r3f'
 export function Building_1(props) {
     const { nodes, materials } = useGLTF('/building_3.glb')
     return (
-        <e.group theatreKey='building1' {...props} dispose={null}>
+        <group theatreKey='building1' {...props} dispose={null}>
             <mesh
                 castShadow
                 receiveShadow
@@ -26,7 +26,7 @@ export function Building_1(props) {
                 position={[3.652, 0, 5.608]}
                 rotation={[-Math.PI / 2, 0, 0]}
             />
-        </e.group>
+        </group>
     )
 }
 
